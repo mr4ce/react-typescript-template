@@ -7,7 +7,10 @@
   "plugins": [
     "@typescript-eslint",
     "import",
-    "prettier"
+    "prettier",
+    "jsx-a11y",
+    "react",
+    "react-hooks"
   ],
   "extends": [
     "airbnb-typescript",

@@ -2,4 +2,16 @@
 
 TypeScript based React.js application boilerplate
 
-# [WORK IN PROGRESS] 🚧
+# Stack
+
+- Webpack
+- React
+- Less
+- TypeScript
+- ESLint
+
+# TODO
+
+- [ ] Dockerise application
+- [ ] Set-up CSS modules loading
+- [ ] Add PWA configuration
