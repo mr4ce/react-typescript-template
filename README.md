@@ -28,6 +28,6 @@ TypeScript based React.js application boilerplate
 # TODO
 
 - [x] Dockerise application
-- [ ] Set-up CSS modules loading
+- [x] Set-up CSS modules loading
 - [ ] Add PWA configuration
 - [ ] Setup MobX
