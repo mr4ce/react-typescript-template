@@ -25,6 +25,32 @@ module.exports = merge(common, {
             ],
           },
           {
+            test: /\.module.less$/i,
+            use: [
+              { loader: "style-loader" },
+              {
+                loader: "css-loader",
+                options: {
+                  modules: {
+                    mode: 'local',
+                    auto: true,
+                    exportGlobals: true,
+                    localIdentName: "[local]--[hash:base64:5]",
+                  },
+                }
+              },
+              { loader: "postcss-loader" },
+              {
+                loader: "less-loader",
+                options: {
+                  lessOptions: {
+                    strictMath: true,
+                  },
+                },
+              },
+            ],
+          },
+          {
             test: /\.less$/i,
             use: [
               { loader: "style-loader" },

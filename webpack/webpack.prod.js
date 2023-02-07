@@ -1,13 +1,14 @@
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require("path");
-const { merge } = require("webpack-merge");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const { merge } = require('webpack-merge');
 
-const common = require("./webpack.common");
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
-  mode: "production",
+  mode: 'production',
   module: {
     rules: [
       {
@@ -18,24 +19,55 @@ module.exports = merge(common, {
               {
                 loader: MiniCssExtractPlugin.loader,
               },
-              { loader: "css-loader" },
-              { loader: "postcss-loader" },
+              { loader: 'css-loader' },
+              { loader: 'postcss-loader' },
             ],
           },
           {
-            test: /\.less$/i,
+            test: /\.module.less$/i,
             use: [
               {
                 loader: MiniCssExtractPlugin.loader,
               },
               {
-                loader: "css-loader",
+                loader: 'css-loader',
+                options: {
+                  modules: {
+                    mode: 'local',
+                    auto: true,
+                    exportGlobals: true,
+                    localIdentName: '[local]--[hash:base64:5]',
+                  },
+                },
               },
               {
-                loader: "postcss-loader",
+                loader: 'postcss-loader',
               },
               {
-                loader: "less-loader",
+                loader: 'less-loader',
+                options: {
+                  lessOptions: {
+                    strictMath: true,
+                  },
+                },
+              },
+            ],
+          },
+          {
+            test: /\.less$/i,
+            exclude: /\.module.less$/i,
+            use: [
+              {
+                loader: MiniCssExtractPlugin.loader,
+              },
+              {
+                loader: 'css-loader',
+              },
+              {
+                loader: 'postcss-loader',
+              },
+              {
+                loader: 'less-loader',
                 options: {
                   lessOptions: {
                     strictMath: true,
@@ -45,13 +77,13 @@ module.exports = merge(common, {
             ],
           },
         ],
-      }
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: "public/index.html",
+      template: 'public/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -63,11 +95,21 @@ module.exports = merge(common, {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true,
-      }
+      },
     }),
     new MiniCssExtractPlugin({
-      filename: "static/css/[name].[contenthash:8].min.css",
-      chunkFilename: "static/css/[name].[contenthash:8].chunk.css",
+      filename: 'static/css/[name].[contenthash:8].min.css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, process.cwd(), 'public'),
+          globOptions: {
+            ignore: [path.resolve(__dirname, process.cwd(), 'public/index.html')],
+          }
+        },
+      ],
     }),
   ],
   optimization: {
@@ -75,11 +117,11 @@ module.exports = merge(common, {
     minimizer: [
       `...`,
       new CssMinimizerPlugin(),
-    ]
+    ],
   },
   output: {
-    filename: "static/js/bundle.[fullhash:8].min.js",
-    publicPath: "/",
-    path: path.resolve(__dirname, process.cwd(), "build"),
+    filename: 'static/js/bundle.[fullhash:8].min.js',
+    publicPath: '/',
+    path: path.resolve(__dirname, process.cwd(), 'build'),
   },
 });

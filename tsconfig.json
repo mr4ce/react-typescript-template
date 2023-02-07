@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "./dist/",
     "noImplicitAny": true,
     "module": "es6",
@@ -7,12 +8,19 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
-    "sourceMap": true
+    "rootDir": "./src",
+    "sourceMap": true,
+    "paths": {
+      "*": [
+        "*",
+        "./src/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
     "./src/**/*"
-  ]
+  ],
 }
