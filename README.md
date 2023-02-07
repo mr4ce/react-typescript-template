@@ -4,7 +4,13 @@
 
 TypeScript based React.js application boilerplate
 
-# Stack
+## Content
+1. [Stack](#stack)
+2. [Environment variables](#environment-variables)
+3. [Defined global constants](#defined-global-constants)
+4. [TODO](#todo)
+
+## Stack
 
 - Webpack
 - React
